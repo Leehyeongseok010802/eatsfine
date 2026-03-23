@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한국로고테라피연구소 | Korea Logotherapy Institute</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================
+           1. CSS Variables (디자인 가이드 컬러/폰트)
+           ========================================== */
+        :root {
+            --primary-mint: #A3C9A8;      /* 차분하고 산뜻한 보조 연두색 */
+            --bg-white: #FFFFFF;          /* 메인 배경색 */
+            --bg-light: #F9FBF9;          /* 섹션 구분용 아주 연한 민트/그레이 */
+            --text-dark: #333333;         /* 기본 텍스트 */
+            --text-light: #666666;        /* 서브 텍스트 */
+            
+            /* Argesta 폰트를 구매하여 서버에 올리셨다면 맨 앞에 'Argesta'를 넣으시면 됩니다. */
+            --font-en: 'Playfair Display', 'Argesta', serif; 
+            --font-ko: 'Nanum Myeongjo', serif;
+        }
+
+        /* ==========================================
+           2. Reset & Base Styles
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-ko);
+            color: var(--text-dark);
+            background-color: var(--bg-white);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .en-text {
+            font-family: var(--font-en);
+        }
+
+        /* ==========================================
+           3. Navigation (Header)
+           ========================================== */
+        header.nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            z-index: 1000;
+            transition: all 0.4s ease;
+            /* 기본은 투명, 스크롤 시 JS로 클래스 추가하여 흰색 반투명으로 변경 */
+        }
+
+        header.nav-header.scrolled {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 10px rgba(0,0,0,0.05);
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-mint);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            font-size: 1.05rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-mint);
+        }
+
+        .btn-login {
+            padding: 8px 24px;
+            border: 1px solid var(--primary-mint);
+            border-radius: 30px;
+            color: var(--primary-mint);
+            transition: all 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background-color: var(--primary-mint);
+            color: var(--bg-white);
+        }
+
+        /* ==========================================
+           4. Hero Section (100vh & Infinite Animation)
+           ========================================== */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* 하늘/나무 그늘 무한 반복 애니메이션 효과 */
+        @keyframes breathe {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1508615070457-7baeba4003d8?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+            animation: breathe 20s infinite alternate linear;
+            z-index: -2;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* 아래로 갈수록 완전한 흰색으로 변하는 자연스러운 그라데이션 */
+            background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.95) 100%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            z-index: 1;
+            padding: 0 20px;
+            margin-top: 50px;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .hero-content h1 span {
+            color: var(--primary-mint);
+            font-style: italic;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================
+           5. Quote Section (빅터 프랭클 명언)
+           ========================================== */
+        .quote-section {
+            padding: 120px 5%;
+            text-align: center;
+            background-color: var(--bg-white);
+        }
+
+        .quote-text {
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            line-height: 1.6;
+        }
+
+        .quote-author {
+            font-size: 1.2rem;
+            color: var(--primary-mint);
+            letter-spacing: 0.05em;
+        }
+
+        /* ==========================================
+           6. Content Section (연구소 소개 레이아웃)
+           ========================================== */
+        .content-section {
+            padding: 120px 5%;
+            background-color: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 80px;
+        }
+
+        .content-image {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        .content-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.7s ease;
+        }
+
+        .content-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .content-text {
+            flex: 1;
+        }
+
+        .content-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+
+        .content-text p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .link-more {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--primary-mint);
+            font-weight: 700;
+            border-bottom: 1px solid var(--primary-mint);
+            padding-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .link-more:hover {
+            color: var(--text-dark);
+            border-bottom-color: var(--text-dark);
+        }
+
+        /* ==========================================
+           7. Scroll Animations (스크롤 시 페이드인)
+           ========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 딜레이 유틸리티 */
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-400 { transition-delay: 0.4s; }
+
+        /* 반응형 처리 */
+        @media (max-width: 768px) {
+            .nav-menu { display: none; } /* 모바일에서는 햄버거 메뉴로 대체 필요 */
+            .hero-content h1 { font-size: 3rem; }
+            .quote-text { font-size: 1.5rem; }
+            .container { flex-direction: column; gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="nav-header" id="header">
+        <div class="logo en-text">
+            <a href="#">Logotherapy Korea</a>
+        </div>
+        <nav class="nav-menu">
+            <a href="#">Home</a>
+            <a href="#">연구소 소개</a>
+            <a href="#">교육/상담</a>
+            <a href="#">로고카페</a>
+            <a href="#" class="btn-login">로그인</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="en-text reveal active">Find Meaning in <br><span>Every Moment</span></h1>
+            <p class="reveal active delay-200">
+                어떤 상황 속에서도 삶의 의미를 찾을 수 있습니다.<br>
+                한국로고테라피연구소가 당신의 치유와 성장을 함께합니다.
+            </p>
+        </div>
+    </section>
+
+    <section class="quote-section">
+        <div class="reveal">
+            <p class="quote-text">
+                "인간에게 실제로 필요한 것은 긴장이 없는 상태가 아니라, 가치 있는 목표를 향해 노력하고 투쟁하는 것이다."
+            </p>
+            <p class="quote-author en-text">- Viktor E. Frankl -</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="content-image reveal">
+                <img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1000&q=80" alt="Healing Nature">
+            </div>
+            <div class="content-text reveal delay-200">
+                <h2>의미를 향한 의지</h2>
+                <p>기존 사이트의 내용이 이곳에 들어갑니다. 우리는 현대 사회의 상실감과 공허함 속에서 개인이 고유한 의미를 발견하고 극복할 수 있도록 돕습니다.</p>
+                <p>빅터 프랭클의 의미요법을 바탕으로 진정성 있는 상담과 전문적인 교육 프로그램을 제공합니다.</p>
+                <a href="#" class="link-more">연구소 소개 자세히 보기 →</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // 1. 헤더 스크롤 효과 (스크롤 내리면 배경 반투명하게)
+            const header = document.getElementById("header");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 50) {
+                    header.classList.add("scrolled");
+                } else {
+                    header.classList.remove("scrolled");
+                }
+            });
+
+            // 2. 부드러운 스크롤 페이드인 애니메이션 (Intersection Observer)
+            const reveals = document.querySelectorAll(".reveal");
+
+            const revealOptions = {
+                threshold: 0.15, // 요소가 화면에 15% 보일 때 작동
+                rootMargin: "0px 0px -50px 0px" // 살짝 일찍 트리거되도록 마진 설정
+            };
+
+            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add("active");
+                        // 애니메이션이 한 번 실행되면 관찰 해제 (옵션)
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            reveals.forEach(reveal => {
+                // hero 영역 내부의 reveal은 로드 시 바로 보여야 하므로 제외
+                if(!reveal.classList.contains("active")) {
+                    revealOnScroll.observe(reveal);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
