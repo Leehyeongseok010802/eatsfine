@@ -1,5 +1,3 @@
-"use client";
-
 import { motion } from "framer-motion";
 
 export default function Marquee({ text, speed = 20 }: { text: string; speed?: number }) {
