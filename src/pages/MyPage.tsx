@@ -12,9 +12,10 @@ const TABS = [
 
 interface MyPageProps {
   user?: User | null;
+  onNavigate?: (page: string) => void;
 }
 
-export default function MyPage({ user }: MyPageProps) {
+export default function MyPage({ user, onNavigate }: MyPageProps) {
   const [activeTab, setActiveTab] = useState(TABS[0].id);
 
   return (
@@ -73,7 +74,7 @@ export default function MyPage({ user }: MyPageProps) {
                 {activeTab === "settings" && <SettingsContent />}
                 {activeTab === "subscription" && <SubscriptionContent />}
                 {activeTab === "reservations" && <ReservationsContent />}
-                {activeTab === "store" && <StoreContent />}
+                {activeTab === "store" && <StoreContent onNavigate={onNavigate} />}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -323,7 +324,7 @@ function ReservationsContent() {
   );
 }
 
-function StoreContent() {
+function StoreContent({ onNavigate }: { onNavigate?: (page: string) => void }) {
   const [hasStore, setHasStore] = useState(false); // 데모용 토글 상태
 
   return (
@@ -349,7 +350,10 @@ function StoreContent() {
           <p className="text-text-secondary font-light max-w-md mx-auto mb-8">
             파인다이닝 오너이신가요? Eatsfine 파트너가 되어 더 많은 미식가들에게 당신의 요리를 선보이세요.
           </p>
-          <button className="bg-accent text-bg px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-white transition-colors">
+          <button 
+            onClick={() => onNavigate?.("partner-register")}
+            className="bg-accent text-bg px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-white transition-colors"
+          >
             파트너 입점 신청
           </button>
         </div>

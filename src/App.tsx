@@ -12,6 +12,7 @@ import Login from "@/pages/Login";
 import SignUp from "@/pages/SignUp";
 import MyPage from "@/pages/MyPage";
 import Reserve from "@/pages/Reserve";
+import PartnerRegister from "@/pages/PartnerRegister";
 import { getSession, logout, type User } from "@/utils/auth";
 
 export default function App() {
@@ -76,7 +77,13 @@ export default function App() {
       ) : currentPage === "mypage" ? (
         <main className="bg-bg">
           <Header onNavigate={navigateTo} user={user} onLogout={handleLogout} />
-          <MyPage user={user} />
+          <MyPage user={user} onNavigate={navigateTo} />
+          <Footer />
+        </main>
+      ) : currentPage === "partner-register" ? (
+        <main className="bg-bg">
+          <Header onNavigate={navigateTo} user={user} onLogout={handleLogout} />
+          <PartnerRegister onNavigate={navigateTo} />
           <Footer />
         </main>
       ) : currentPage === "reserve" ? (
