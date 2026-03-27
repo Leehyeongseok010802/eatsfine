@@ -2,7 +2,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Marquee from "./Marquee";
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  onNavigate?: (page: string) => void;
+}
+
+export default function HeroSection({ onNavigate }: HeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -45,7 +49,10 @@ export default function HeroSection() {
             Experience the art of fine dining.
             <br /> Reserve your perfect table.
           </p>
-          <button className="cursor-hover group relative overflow-hidden rounded-full border border-white/20 bg-white/5 px-8 py-3 backdrop-blur-sm transition-all hover:bg-accent hover:border-accent">
+          <button 
+            onClick={() => onNavigate?.("reserve")}
+            className="cursor-hover group relative overflow-hidden rounded-full border border-white/20 bg-white/5 px-8 py-3 backdrop-blur-sm transition-all hover:bg-accent hover:border-accent"
+          >
             <span className="relative z-10 text-sm font-medium uppercase tracking-widest text-white group-hover:text-black">
               Reserve Now
             </span>

@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
 
-export default function CtaSection() {
+interface CtaSectionProps {
+  onNavigate?: (page: string) => void;
+}
+
+export default function CtaSection({ onNavigate }: CtaSectionProps) {
   return (
     <section className="relative h-[80vh] flex items-center justify-center bg-accent overflow-hidden">
       <div className="absolute inset-0 bg-black/10" />
@@ -23,7 +27,10 @@ export default function CtaSection() {
           transition={{ delay: 0.3, duration: 0.8 }}
           className="mt-12"
         >
-          <button className="cursor-hover group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-bg px-12 py-6 text-lg font-bold uppercase tracking-widest text-accent transition-transform hover:scale-105">
+          <button 
+            onClick={() => onNavigate?.("reserve")}
+            className="cursor-hover group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-bg px-12 py-6 text-lg font-bold uppercase tracking-widest text-accent transition-transform hover:scale-105"
+          >
             <span className="relative z-10 font-serif">Book Now</span>
             <div className="absolute inset-0 -z-10 bg-white opacity-0 transition-opacity group-hover:opacity-10" />
           </button>

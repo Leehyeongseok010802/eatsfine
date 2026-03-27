@@ -24,7 +24,7 @@
   --color-accent-dim: var(--accent-dim);
   --color-line: var(--border);
   --color-line-hover: var(--border-hover);
-  --font-sans: "Noto Sans KR", system-ui, -apple-system, sans-serif;
+  --font-sans: "Noto Sans", "Nanum Myeongjo", "나눔명조", serif;
   --font-serif: "Bodoni Moda", serif;
 }
 
