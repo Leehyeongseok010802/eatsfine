@@ -369,8 +369,11 @@ function StoreContent({ onNavigate }: { onNavigate?: (page: string) => void }) {
               <button className="border border-line text-white px-6 py-3 text-xs uppercase tracking-widest hover:border-white transition-colors">
                 가게 정보 수정
               </button>
-              <button className="bg-accent text-bg px-6 py-3 text-xs uppercase tracking-widest font-bold hover:bg-white transition-colors">
-                예약 관리
+              <button 
+                onClick={() => onNavigate?.("dashboard")}
+                className="bg-accent text-bg px-6 py-3 text-xs uppercase tracking-widest font-bold hover:bg-white transition-colors"
+              >
+                대시보드 이동
               </button>
             </div>
           </div>
